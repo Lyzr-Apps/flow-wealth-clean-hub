@@ -1,0 +1,81 @@
+{
+  "agent_name": "Market Strategist Agent",
+  "agent_id": "6985867f49f279d47448a5c3",
+  "agent_purpose": "investment_strategy",
+  "description": "Retrieves real-time yield data, ETF options, and institutional insights matched to user risk profile",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "recommendations": [
+        {
+          "investment_type": "string",
+          "current_APY": "string",
+          "minimum_investment": "string",
+          "liquidity_terms": "string"
+        }
+      ],
+      "risk_profile_matched": "string",
+      "total_opportunities": "number"
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "recommendations": [
+        {
+          "investment_type": "High-Yield Savings Account",
+          "current_APY": "4.00%",
+          "minimum_investment": "$1",
+          "liquidity_terms": "No withdrawal limits, funds accessible anytime"
+        },
+        {
+          "investment_type": "Money Market Fund",
+          "current_APY": "3.75%",
+          "minimum_investment": "$500",
+          "liquidity_terms": "Funds available within 1-2 business days"
+        }
+      ],
+      "risk_profile_matched": "conservative",
+      "total_opportunities": 2
+    },
+    "metadata": {
+      "agent_name": "Market Strategist Agent",
+      "timestamp": "2023-10-06T14:30:00Z"
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-02-06T06:20:10.272656",
+  "test_message_used": "Hello, provide a sample response",
+  "raw_test_response": "litellm.BadRequestError: LLM Provider NOT provided. Pass in the LLM provider you are trying to call. You passed model=sonar-pro\n Pass model as E.g. For 'Huggingface' inference endpoints pass in `completion(model='huggingface/starcoder',..)` Learn more: https://docs.litellm.ai/docs/providers",
+  "test_error": "Response not valid JSON: Expecting value: line 1 column 1 (char 0)",
+  "actual_test_response": {
+    "status": "success",
+    "result": {
+      "recommendations": [
+        {
+          "investment_type": "High-Yield Savings Account",
+          "current_APY": "4.00%",
+          "minimum_investment": "$1",
+          "liquidity_terms": "No withdrawal limits, funds accessible anytime"
+        },
+        {
+          "investment_type": "Money Market Fund",
+          "current_APY": "3.75%",
+          "minimum_investment": "$500",
+          "liquidity_terms": "Funds available within 1-2 business days"
+        }
+      ],
+      "risk_profile_matched": "conservative",
+      "total_opportunities": 2
+    },
+    "metadata": {
+      "agent_name": "Market Strategist Agent",
+      "timestamp": "2023-10-06T14:30:00Z"
+    }
+  },
+  "test_passed": true
+}

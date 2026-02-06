@@ -1,0 +1,122 @@
+{
+  "nodes": [
+    {
+      "id": "input_node",
+      "type": "Input",
+      "label": "User Financial Request",
+      "nodeCategory": "input",
+      "position": {
+        "x": 100,
+        "y": 200
+      }
+    },
+    {
+      "id": "wealth_architect_manager",
+      "type": "Agent",
+      "label": "Wealth Architect Manager",
+      "nodeCategory": "agent",
+      "position": {
+        "x": 400,
+        "y": 200
+      },
+      "data": {
+        "agent_id": "698586be382ef8715224cf22",
+        "agent_name": "Wealth Architect Manager",
+        "agent_type": "Manager",
+        "provider": "OpenAI",
+        "model": "gpt-4.1"
+      }
+    },
+    {
+      "id": "data_cruncher_agent",
+      "type": "Agent",
+      "label": "Data Cruncher Agent",
+      "nodeCategory": "agent",
+      "position": {
+        "x": 200,
+        "y": 400
+      },
+      "data": {
+        "agent_id": "69858660382ef8715224cf1d",
+        "agent_name": "Data Cruncher Agent",
+        "agent_type": "Sub-Agent",
+        "provider": "OpenAI",
+        "model": "gpt-4.1"
+      }
+    },
+    {
+      "id": "market_strategist_agent",
+      "type": "Agent",
+      "label": "Market Strategist Agent",
+      "nodeCategory": "agent",
+      "position": {
+        "x": 400,
+        "y": 400
+      },
+      "data": {
+        "agent_id": "6985867f49f279d47448a5c3",
+        "agent_name": "Market Strategist Agent",
+        "agent_type": "Sub-Agent",
+        "provider": "Perplexity",
+        "model": "perplexity/sonar-pro"
+      }
+    },
+    {
+      "id": "executioner_agent",
+      "type": "Agent",
+      "label": "Executioner Agent",
+      "nodeCategory": "agent",
+      "position": {
+        "x": 600,
+        "y": 400
+      },
+      "data": {
+        "agent_id": "698586981caa4e686dd66dba",
+        "agent_name": "Executioner Agent",
+        "agent_type": "Sub-Agent",
+        "provider": "OpenAI",
+        "model": "gpt-4.1"
+      }
+    },
+    {
+      "id": "output_node",
+      "type": "Output",
+      "label": "Wealth Optimization Result",
+      "nodeCategory": "end",
+      "position": {
+        "x": 400,
+        "y": 600
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "input_node",
+      "target": "wealth_architect_manager"
+    },
+    {
+      "source": "wealth_architect_manager",
+      "target": "data_cruncher_agent"
+    },
+    {
+      "source": "wealth_architect_manager",
+      "target": "market_strategist_agent"
+    },
+    {
+      "source": "wealth_architect_manager",
+      "target": "executioner_agent"
+    },
+    {
+      "source": "data_cruncher_agent",
+      "target": "output_node"
+    },
+    {
+      "source": "market_strategist_agent",
+      "target": "output_node"
+    },
+    {
+      "source": "executioner_agent",
+      "target": "output_node"
+    }
+  ]
+}

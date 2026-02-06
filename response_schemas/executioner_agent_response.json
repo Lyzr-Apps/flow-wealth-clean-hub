@@ -1,0 +1,267 @@
+{
+  "agent_name": "Executioner Agent",
+  "agent_id": "698586981caa4e686dd66dba",
+  "agent_purpose": "execution_preparation",
+  "description": "Prepares API call bundles for fund movements, subscription cancellations, and refund requests awaiting user approval",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "execution_bundles": [
+        {
+          "bundle_id": "string",
+          "action_type": "string",
+          "priority": "string",
+          "description": "string",
+          "estimated_impact": {
+            "savings": "number",
+            "revenue": "number",
+            "time_to_execute": "string"
+          },
+          "api_calls": [
+            {
+              "service": "string",
+              "endpoint": "string",
+              "method": "string",
+              "payload": {
+                "from_account": "string",
+                "to_account": "string",
+                "amount": "number",
+                "currency": "string",
+                "purpose": "string"
+              },
+              "requires_approval": "boolean"
+            }
+          ],
+          "rollback_plan": "string"
+        }
+      ],
+      "approval_summary": {
+        "total_actions": "number",
+        "total_estimated_savings": "number",
+        "total_investment_amount": "number",
+        "requires_user_approval": "boolean"
+      },
+      "notifications": [
+        {
+          "type": "string",
+          "recipient": "string",
+          "subject": "string",
+          "body": "string"
+        }
+      ]
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string",
+      "execution_ready": "boolean"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "execution_bundles": [
+        {
+          "bundle_id": "transfer-001",
+          "action_type": "transfer",
+          "priority": "high",
+          "description": "Transfer $400 to high-yield savings account with 5.2% APY to optimize available funds.",
+          "estimated_impact": {
+            "savings": 20.8,
+            "revenue": 0,
+            "time_to_execute": "<2 minutes"
+          },
+          "api_calls": [
+            {
+              "service": "plaid",
+              "endpoint": "/transfer",
+              "method": "POST",
+              "payload": {
+                "from_account": "primary_checking",
+                "to_account": "high_yield_savings_5.2_APY",
+                "amount": 400,
+                "currency": "USD",
+                "purpose": "Maximize rewards via high APY"
+              },
+              "requires_approval": true
+            }
+          ],
+          "rollback_plan": "Initiate an immediate reversal; move funds back from high-yield savings to original account if transfer fails or is not completed."
+        },
+        {
+          "bundle_id": "cancel-spotify-002",
+          "action_type": "cancel_subscription",
+          "priority": "medium",
+          "description": "Cancel Spotify subscription ($9.99/month) which has been unused for 45 days.",
+          "estimated_impact": {
+            "savings": 9.99,
+            "revenue": 0,
+            "time_to_execute": "<5 minutes"
+          },
+          "api_calls": [
+            {
+              "service": "custom",
+              "endpoint": "/cancel_subscription/spotify",
+              "method": "DELETE",
+              "payload": {
+                "subscription_id": "spotify-monthly",
+                "reason": "unused 45 days"
+              },
+              "requires_approval": true
+            }
+          ],
+          "rollback_plan": "Re-subscribe to Spotify immediately if cancellation was in error."
+        },
+        {
+          "bundle_id": "refund-netflix-003",
+          "action_type": "request_refund",
+          "priority": "high",
+          "description": "Request a refund for duplicate Netflix charge of $15.99.",
+          "estimated_impact": {
+            "savings": 15.99,
+            "revenue": 0,
+            "time_to_execute": "<10 minutes"
+          },
+          "api_calls": [
+            {
+              "service": "gmail",
+              "endpoint": "/send_email",
+              "method": "POST",
+              "payload": {
+                "to": "customer.support@netflix.com",
+                "subject": "Duplicate charge refund request for Netflix subscription",
+                "body": "Dear Netflix Support,\n\nI have noticed a duplicate charge of $15.99 on my account. Kindly review and process a refund for the extra charge at your earliest convenience.\n\nThank you,\n[Your Name]"
+              },
+              "requires_approval": true
+            }
+          ],
+          "rollback_plan": "Follow-up with Netflix support if refund is denied or delayed; no further action necessary if refund is confirmed."
+        }
+      ],
+      "approval_summary": {
+        "total_actions": 3,
+        "total_estimated_savings": 46.78,
+        "total_investment_amount": 400,
+        "requires_user_approval": true
+      },
+      "notifications": [
+        {
+          "type": "email",
+          "recipient": "user@example.com",
+          "subject": "Action Required: Approve Financial Execution Bundles",
+          "body": "Three financial actions (fund transfer, subscription cancellation, duplicate refund) are ready for your approval. Review and approve to proceed."
+        }
+      ]
+    },
+    "metadata": {
+      "agent_name": "Executioner Agent",
+      "timestamp": "2024-06-10T14:20:00Z",
+      "execution_ready": true
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-02-06T06:17:15.588078",
+  "test_message_used": "Hello, provide a sample response",
+  "actual_test_response": {
+    "status": "success",
+    "result": {
+      "execution_bundles": [
+        {
+          "bundle_id": "transfer-001",
+          "action_type": "transfer",
+          "priority": "high",
+          "description": "Transfer $400 to high-yield savings account with 5.2% APY to optimize available funds.",
+          "estimated_impact": {
+            "savings": 20.8,
+            "revenue": 0,
+            "time_to_execute": "<2 minutes"
+          },
+          "api_calls": [
+            {
+              "service": "plaid",
+              "endpoint": "/transfer",
+              "method": "POST",
+              "payload": {
+                "from_account": "primary_checking",
+                "to_account": "high_yield_savings_5.2_APY",
+                "amount": 400,
+                "currency": "USD",
+                "purpose": "Maximize rewards via high APY"
+              },
+              "requires_approval": true
+            }
+          ],
+          "rollback_plan": "Initiate an immediate reversal; move funds back from high-yield savings to original account if transfer fails or is not completed."
+        },
+        {
+          "bundle_id": "cancel-spotify-002",
+          "action_type": "cancel_subscription",
+          "priority": "medium",
+          "description": "Cancel Spotify subscription ($9.99/month) which has been unused for 45 days.",
+          "estimated_impact": {
+            "savings": 9.99,
+            "revenue": 0,
+            "time_to_execute": "<5 minutes"
+          },
+          "api_calls": [
+            {
+              "service": "custom",
+              "endpoint": "/cancel_subscription/spotify",
+              "method": "DELETE",
+              "payload": {
+                "subscription_id": "spotify-monthly",
+                "reason": "unused 45 days"
+              },
+              "requires_approval": true
+            }
+          ],
+          "rollback_plan": "Re-subscribe to Spotify immediately if cancellation was in error."
+        },
+        {
+          "bundle_id": "refund-netflix-003",
+          "action_type": "request_refund",
+          "priority": "high",
+          "description": "Request a refund for duplicate Netflix charge of $15.99.",
+          "estimated_impact": {
+            "savings": 15.99,
+            "revenue": 0,
+            "time_to_execute": "<10 minutes"
+          },
+          "api_calls": [
+            {
+              "service": "gmail",
+              "endpoint": "/send_email",
+              "method": "POST",
+              "payload": {
+                "to": "customer.support@netflix.com",
+                "subject": "Duplicate charge refund request for Netflix subscription",
+                "body": "Dear Netflix Support,\n\nI have noticed a duplicate charge of $15.99 on my account. Kindly review and process a refund for the extra charge at your earliest convenience.\n\nThank you,\n[Your Name]"
+              },
+              "requires_approval": true
+            }
+          ],
+          "rollback_plan": "Follow-up with Netflix support if refund is denied or delayed; no further action necessary if refund is confirmed."
+        }
+      ],
+      "approval_summary": {
+        "total_actions": 3,
+        "total_estimated_savings": 46.78,
+        "total_investment_amount": 400,
+        "requires_user_approval": true
+      },
+      "notifications": [
+        {
+          "type": "email",
+          "recipient": "user@example.com",
+          "subject": "Action Required: Approve Financial Execution Bundles",
+          "body": "Three financial actions (fund transfer, subscription cancellation, duplicate refund) are ready for your approval. Review and approve to proceed."
+        }
+      ]
+    },
+    "metadata": {
+      "agent_name": "Executioner Agent",
+      "timestamp": "2024-06-10T14:20:00Z",
+      "execution_ready": true
+    }
+  },
+  "test_passed": true
+}

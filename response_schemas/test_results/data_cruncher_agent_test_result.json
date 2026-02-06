@@ -1,0 +1,48 @@
+{
+  "agent_name": "Data Cruncher Agent",
+  "agent_id": "69858660382ef8715224cf1d",
+  "test_message": "Analyze my bank transactions: Netflix $15.99 charged twice on Jan 15, Whole Foods $450 on Jan 10, Rent $2000 on Jan 1, Salary deposit $6000 on Jan 5, Gas $80 on Jan 12, Spotify $9.99 unused for 45 days. Calculate my burn rate and identify surplus capital.",
+  "expected_purpose": "financial_analyzer",
+  "timestamp": "2026-02-06T06:16:38.193017",
+  "is_valid_json": true,
+  "validation_errors": [],
+  "actual_response": {
+    "status": "success",
+    "result": {
+      "burn_rate": {
+        "monthly_average": 2561.97,
+        "trend": "stable"
+      },
+      "surplus_capital": {
+        "amount": 3453.03,
+        "available_for_investment": 2052.04,
+        "safety_buffer": 1400.99
+      },
+      "anomalies": [
+        {
+          "type": "duplicate",
+          "description": "Duplicate Netflix charge detected on Jan 15 (2 charges of $15.99 within 48 hours)",
+          "amount": 15.99,
+          "potential_savings": 15.99
+        },
+        {
+          "type": "unused_subscription",
+          "description": "Spotify subscription of $9.99 appears unused for 45 days. Consider cancelling.",
+          "amount": 9.99,
+          "potential_savings": 9.99
+        }
+      ],
+      "account_summary": {
+        "total_balance": 3453.03,
+        "accounts_analyzed": 1,
+        "transaction_count": 7
+      }
+    },
+    "metadata": {
+      "agent_name": "Data Cruncher Agent",
+      "timestamp": "2024-06-10T15:32:00Z",
+      "analysis_period_days": 30
+    }
+  },
+  "raw_response": "{\n  \"status\": \"success\",\n  \"result\": {\n    \"burn_rate\": {\n      \"monthly_average\": 2561.97,\n      \"trend\": \"stable\"\n    },\n    \"surplus_capital\": {\n      \"amount\": 3453.03,\n      \"available_for_investment\": 2052.04,\n      \"safety_buffer\": 1400.99\n    },\n    \"anomalies\": [\n      {\n        \"type\": \"duplicate\",\n        \"description\": \"Duplicate Netflix charge detected on Jan 15 (2 charges of $15.99 within 48 hours)\",\n        \"amount\": 15.99,\n        \"potential_savings\": 15.99\n      },\n      {\n        \"type\": \"unused_subscription\",\n        \"description\": \"Spotify subscription of $9.99 appears unused for 45 days. Consider cancelling.\",\n        \"amount\": 9.99,\n        \"potential_savings\": 9.99\n      }\n    ],\n    \"account_summary\": {\n      \"total_balance\": 3453.03,\n      \"accounts_analyzed\": 1,\n      \"transaction_count\": 7\n    }\n  },\n  \"metadata\": {\n    \"agent_name\": \"Data Cruncher Agent\",\n    \"timestamp\": \"2024-06-10T15:32:00Z\",\n    \"analysis_period_days\": 30\n  }\n}"
+}

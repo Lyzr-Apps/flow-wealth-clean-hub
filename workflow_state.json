@@ -1,0 +1,103 @@
+{
+  "workflow_name": "FlowState Autonomous Wealth Optimization Platform",
+  "pattern": "Manager-Subagent",
+  "created_at": "2026-02-06T00:00:00Z",
+  "agents": {
+    "wealth_architect_manager": {
+      "agent_id": "698586be382ef8715224cf22",
+      "name": "Wealth Architect Manager",
+      "type": "Manager",
+      "provider": "OpenAI",
+      "model": "gpt-4.1",
+      "temperature": 0.3,
+      "top_p": 1,
+      "managed_agents": [
+        "69858660382ef8715224cf1d",
+        "6985867f49f279d47448a5c3",
+        "698586981caa4e686dd66dba"
+      ]
+    },
+    "data_cruncher_agent": {
+      "agent_id": "69858660382ef8715224cf1d",
+      "name": "Data Cruncher Agent",
+      "type": "Sub-Agent",
+      "provider": "OpenAI",
+      "model": "gpt-4.1",
+      "temperature": 0.2,
+      "top_p": 1,
+      "integrations": [
+        {
+          "name": "Plaid",
+          "type": "custom",
+          "actions": ["connect_accounts", "fetch_transactions", "get_balance"]
+        }
+      ]
+    },
+    "market_strategist_agent": {
+      "agent_id": "6985867f49f279d47448a5c3",
+      "name": "Market Strategist Agent",
+      "type": "Sub-Agent",
+      "provider": "Perplexity",
+      "model": "perplexity/sonar-pro",
+      "temperature": 0.3,
+      "top_p": 1,
+      "integrations": [
+        {
+          "name": "Market Data API",
+          "type": "custom",
+          "actions": ["fetch_yields", "get_etf_data", "get_institutional_insights"]
+        }
+      ]
+    },
+    "executioner_agent": {
+      "agent_id": "698586981caa4e686dd66dba",
+      "name": "Executioner Agent",
+      "type": "Sub-Agent",
+      "provider": "OpenAI",
+      "model": "gpt-4.1",
+      "temperature": 0.2,
+      "top_p": 1,
+      "integrations": [
+        {
+          "name": "Plaid",
+          "type": "custom",
+          "actions": ["initiate_transfer", "cancel_subscription", "get_account_details"]
+        },
+        {
+          "name": "Gmail",
+          "type": "composio",
+          "actions": ["GMAIL_SEND_EMAIL"]
+        }
+      ]
+    }
+  },
+  "response_schemas": {
+    "data_cruncher_agent": "/app/nextjs-project/response_schemas/data_cruncher_agent_response.json",
+    "market_strategist_agent": "/app/nextjs-project/response_schemas/market_strategist_agent_response.json",
+    "executioner_agent": "/app/nextjs-project/response_schemas/executioner_agent_response.json",
+    "wealth_architect_manager": "/app/nextjs-project/response_schemas/wealth_architect_manager_response.json"
+  },
+  "trigger": "Analyze My Finances (Dashboard)",
+  "workflow_layout": {
+    "input_node": {
+      "position": {"x": 100, "y": 200},
+      "connects_to": "wealth_architect_manager"
+    },
+    "wealth_architect_manager": {
+      "position": {"x": 400, "y": 200},
+      "connects_to": ["data_cruncher_agent", "market_strategist_agent", "executioner_agent"]
+    },
+    "data_cruncher_agent": {
+      "position": {"x": 200, "y": 400}
+    },
+    "market_strategist_agent": {
+      "position": {"x": 400, "y": 400}
+    },
+    "executioner_agent": {
+      "position": {"x": 600, "y": 400}
+    },
+    "output_node": {
+      "position": {"x": 400, "y": 600}
+    }
+  }
+}

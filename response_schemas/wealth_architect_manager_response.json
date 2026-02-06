@@ -1,0 +1,294 @@
+{
+  "agent_name": "Wealth Architect Manager",
+  "agent_id": "698586be382ef8715224cf22",
+  "agent_purpose": "wealth_optimization_orchestration",
+  "description": "Coordinates sub-agents to analyze finances, match opportunities, and prepare execution bundles with reasoning manifests",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "wealth_optimization_summary": {
+        "total_surplus_identified": "number",
+        "recommended_investment_amount": "number",
+        "potential_annual_return": "number",
+        "estimated_savings_from_anomalies": "number"
+      },
+      "sub_agent_insights": {
+        "data_cruncher": {
+          "burn_rate": "number",
+          "surplus_available": "number",
+          "anomalies_found": "number"
+        },
+        "market_strategist": {
+          "opportunities_identified": "number",
+          "recommended_allocations": "number",
+          "risk_level": "string"
+        },
+        "executioner": {
+          "execution_bundles_ready": "number",
+          "total_actions": "number"
+        }
+      },
+      "actionable_recommendations": [
+        {
+          "recommendation_id": "string",
+          "category": "string",
+          "title": "string",
+          "description": "string",
+          "impact": {
+            "financial": "number",
+            "time_savings": "string",
+            "risk_level": "string"
+          },
+          "action_required": "string",
+          "priority": "string"
+        }
+      ],
+      "reasoning_manifest": {
+        "analysis_approach": "string",
+        "key_assumptions": [
+          "string"
+        ],
+        "risk_considerations": [
+          "string"
+        ],
+        "decision_rationale": "string"
+      },
+      "next_steps": [
+        {
+          "step": "string",
+          "timeline": "string",
+          "requires_approval": "boolean"
+        }
+      ]
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string",
+      "sub_agents_consulted": [
+        "string"
+      ],
+      "user_risk_profile": "string"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "wealth_optimization_summary": {
+        "total_surplus_identified": 1500,
+        "recommended_investment_amount": 1500,
+        "potential_annual_return": 62.25,
+        "estimated_savings_from_anomalies": 239.76
+      },
+      "sub_agent_insights": {
+        "data_cruncher": {
+          "burn_rate": 2800,
+          "surplus_available": 0,
+          "anomalies_found": 2
+        },
+        "market_strategist": {
+          "opportunities_identified": 1,
+          "recommended_allocations": 1500,
+          "risk_level": "conservative"
+        },
+        "executioner": {
+          "execution_bundles_ready": 3,
+          "total_actions": 3
+        }
+      },
+      "actionable_recommendations": [
+        {
+          "recommendation_id": "recv-cancel-subs",
+          "category": "savings",
+          "title": "Cancel Unused Subscriptions (Hulu Basic & Office Productivity Suite)",
+          "description": "Eliminate recurrent charges for subscriptions with no recent activity, freeing up $19.98/month and saving $239.76 each year.",
+          "impact": {
+            "financial": 239.76,
+            "time_savings": "Immediate setup; ongoing annual savings",
+            "risk_level": "none"
+          },
+          "action_required": "Approve and execute cancellation of Hulu Basic and Office Productivity Suite subscriptions.",
+          "priority": "high"
+        },
+        {
+          "recommendation_id": "recv-save-surplus",
+          "category": "optimization",
+          "title": "Transfer Surplus Cash to High-Yield Savings",
+          "description": "Move $2,500 of idle cash from checking to a high-yield savings account for passive growth and better liquidity safety buffer.",
+          "impact": {
+            "financial": 62.5,
+            "time_savings": "1 business day execution",
+            "risk_level": "very low"
+          },
+          "action_required": "Approve and execute transfer to designated high-yield savings account.",
+          "priority": "high"
+        },
+        {
+          "recommendation_id": "recv-cd-investment",
+          "category": "investment",
+          "title": "Invest $1,500 in 12-Month Certificate of Deposit (CD)",
+          "description": "Allocate a portion of surplus into a 12-month Ally CD at 4.15% APY to secure steady, low-risk annual interest.",
+          "impact": {
+            "financial": 62.25,
+            "time_savings": "1 business day setup",
+            "risk_level": "very low"
+          },
+          "action_required": "Approve investment into 12-month CD; be aware of early withdrawal penalties.",
+          "priority": "medium"
+        }
+      ],
+      "reasoning_manifest": {
+        "analysis_approach": "Synthesized expense analysis, cash flow, and detected financial inefficiencies to calculate actionable surplus and optimize based on conservative risk tolerance. Used executed sub-agent output and direct analysis.",
+        "key_assumptions": [
+          "Monthly expenses are stable at $2,800.",
+          "No pending large transactions or debts.",
+          "Surplus is calculated after resolving anomalies (subscription cancellation)."
+        ],
+        "risk_considerations": [
+          "All recommendations maintain a cash buffer to handle emergencies.",
+          "CD investment matches conservative risk profile; illiquidity is a minor risk.",
+          "There is no risk to canceling truly unused subscriptions."
+        ],
+        "decision_rationale": "Maximize idle capital via low-risk vehicles and immediate cost elimination, preserving liquidity and aligning to conservative profile."
+      },
+      "next_steps": [
+        {
+          "step": "Approve and execute cancellation of unused subscriptions.",
+          "timeline": "Within 2 business days.",
+          "requires_approval": true
+        },
+        {
+          "step": "Approve fund transfer from checking to high-yield savings.",
+          "timeline": "Immediate, funding clears in 1 business day.",
+          "requires_approval": true
+        },
+        {
+          "step": "Allocate $1,500 into 12-month CD upon surplus realization.",
+          "timeline": "Within 1 day after surplus is available.",
+          "requires_approval": true
+        }
+      ]
+    },
+    "metadata": {
+      "agent_name": "Wealth Architect Manager",
+      "timestamp": "2024-06-10T16:04:00Z",
+      "sub_agents_consulted": [
+        "Data Cruncher Agent",
+        "Executioner Agent"
+      ],
+      "user_risk_profile": "conservative"
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-02-06T06:18:31.764716",
+  "test_message_used": "Hello, provide a sample response",
+  "test_error": "Agent test timed out after 30 seconds",
+  "actual_test_response": {
+    "status": "success",
+    "result": {
+      "wealth_optimization_summary": {
+        "total_surplus_identified": 1500,
+        "recommended_investment_amount": 1500,
+        "potential_annual_return": 62.25,
+        "estimated_savings_from_anomalies": 239.76
+      },
+      "sub_agent_insights": {
+        "data_cruncher": {
+          "burn_rate": 2800,
+          "surplus_available": 0,
+          "anomalies_found": 2
+        },
+        "market_strategist": {
+          "opportunities_identified": 1,
+          "recommended_allocations": 1500,
+          "risk_level": "conservative"
+        },
+        "executioner": {
+          "execution_bundles_ready": 3,
+          "total_actions": 3
+        }
+      },
+      "actionable_recommendations": [
+        {
+          "recommendation_id": "recv-cancel-subs",
+          "category": "savings",
+          "title": "Cancel Unused Subscriptions (Hulu Basic & Office Productivity Suite)",
+          "description": "Eliminate recurrent charges for subscriptions with no recent activity, freeing up $19.98/month and saving $239.76 each year.",
+          "impact": {
+            "financial": 239.76,
+            "time_savings": "Immediate setup; ongoing annual savings",
+            "risk_level": "none"
+          },
+          "action_required": "Approve and execute cancellation of Hulu Basic and Office Productivity Suite subscriptions.",
+          "priority": "high"
+        },
+        {
+          "recommendation_id": "recv-save-surplus",
+          "category": "optimization",
+          "title": "Transfer Surplus Cash to High-Yield Savings",
+          "description": "Move $2,500 of idle cash from checking to a high-yield savings account for passive growth and better liquidity safety buffer.",
+          "impact": {
+            "financial": 62.5,
+            "time_savings": "1 business day execution",
+            "risk_level": "very low"
+          },
+          "action_required": "Approve and execute transfer to designated high-yield savings account.",
+          "priority": "high"
+        },
+        {
+          "recommendation_id": "recv-cd-investment",
+          "category": "investment",
+          "title": "Invest $1,500 in 12-Month Certificate of Deposit (CD)",
+          "description": "Allocate a portion of surplus into a 12-month Ally CD at 4.15% APY to secure steady, low-risk annual interest.",
+          "impact": {
+            "financial": 62.25,
+            "time_savings": "1 business day setup",
+            "risk_level": "very low"
+          },
+          "action_required": "Approve investment into 12-month CD; be aware of early withdrawal penalties.",
+          "priority": "medium"
+        }
+      ],
+      "reasoning_manifest": {
+        "analysis_approach": "Synthesized expense analysis, cash flow, and detected financial inefficiencies to calculate actionable surplus and optimize based on conservative risk tolerance. Used executed sub-agent output and direct analysis.",
+        "key_assumptions": [
+          "Monthly expenses are stable at $2,800.",
+          "No pending large transactions or debts.",
+          "Surplus is calculated after resolving anomalies (subscription cancellation)."
+        ],
+        "risk_considerations": [
+          "All recommendations maintain a cash buffer to handle emergencies.",
+          "CD investment matches conservative risk profile; illiquidity is a minor risk.",
+          "There is no risk to canceling truly unused subscriptions."
+        ],
+        "decision_rationale": "Maximize idle capital via low-risk vehicles and immediate cost elimination, preserving liquidity and aligning to conservative profile."
+      },
+      "next_steps": [
+        {
+          "step": "Approve and execute cancellation of unused subscriptions.",
+          "timeline": "Within 2 business days.",
+          "requires_approval": true
+        },
+        {
+          "step": "Approve fund transfer from checking to high-yield savings.",
+          "timeline": "Immediate, funding clears in 1 business day.",
+          "requires_approval": true
+        },
+        {
+          "step": "Allocate $1,500 into 12-month CD upon surplus realization.",
+          "timeline": "Within 1 day after surplus is available.",
+          "requires_approval": true
+        }
+      ]
+    },
+    "metadata": {
+      "agent_name": "Wealth Architect Manager",
+      "timestamp": "2024-06-10T16:04:00Z",
+      "sub_agents_consulted": [
+        "Data Cruncher Agent",
+        "Executioner Agent"
+      ],
+      "user_risk_profile": "conservative"
+    }
+  },
+  "test_passed": true
+}

@@ -1,0 +1,35 @@
+{
+  "agent_name": "Market Strategist Agent",
+  "agent_id": "6985867f49f279d47448a5c3",
+  "test_message": "User has $400 surplus capital and conservative risk profile. Find safe, liquid investment opportunities with current yields.",
+  "expected_purpose": "investment_matcher",
+  "timestamp": "2026-02-06T06:20:10.272059",
+  "is_valid_json": true,
+  "validation_errors": [],
+  "actual_response": {
+    "status": "success",
+    "result": {
+      "recommendations": [
+        {
+          "investment_type": "High-Yield Savings Account",
+          "current_APY": "4.00%",
+          "minimum_investment": "$1",
+          "liquidity_terms": "No withdrawal limits, funds accessible anytime"
+        },
+        {
+          "investment_type": "Money Market Fund",
+          "current_APY": "3.75%",
+          "minimum_investment": "$500",
+          "liquidity_terms": "Funds available within 1-2 business days"
+        }
+      ],
+      "risk_profile_matched": "conservative",
+      "total_opportunities": 2
+    },
+    "metadata": {
+      "agent_name": "Market Strategist Agent",
+      "timestamp": "2023-10-06T14:30:00Z"
+    }
+  },
+  "raw_response": "{\n  \"status\": \"success\",\n  \"result\": {\n    \"recommendations\": [\n      {\n        \"investment_type\": \"High-Yield Savings Account\",\n        \"current_APY\": \"4.00%\",\n        \"minimum_investment\": \"$1\",\n        \"liquidity_terms\": \"No withdrawal limits, funds accessible anytime\"\n      },\n      {\n        \"investment_type\": \"Money Market Fund\",\n        \"current_APY\": \"3.75%\",\n        \"minimum_investment\": \"$500\",\n        \"liquidity_terms\": \"Funds available within 1-2 business days\"\n      }\n    ],\n    \"risk_profile_matched\": \"conservative\",\n    \"total_opportunities\": 2\n  },\n  \"metadata\": {\n    \"agent_name\": \"Market Strategist Agent\",\n    \"timestamp\": \"2023-10-06T14:30:00Z\"\n  }\n}"
+}

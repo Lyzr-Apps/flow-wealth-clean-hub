@@ -1,0 +1,118 @@
+{
+  "agent_name": "Data Cruncher Agent",
+  "agent_id": "69858660382ef8715224cf1d",
+  "agent_purpose": "financial_data_analysis",
+  "description": "Analyzes transaction history to calculate burn rate, identify surplus capital, and flag financial anomalies",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "burn_rate": {
+        "monthly_average": "number",
+        "trend": "string"
+      },
+      "surplus_capital": {
+        "amount": "number",
+        "available_for_investment": "number",
+        "safety_buffer": "number"
+      },
+      "anomalies": [
+        {
+          "type": "string",
+          "description": "string",
+          "amount": "number",
+          "potential_savings": "number"
+        }
+      ],
+      "account_summary": {
+        "total_balance": "number",
+        "accounts_analyzed": "number",
+        "transaction_count": "number"
+      }
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string",
+      "analysis_period_days": "number"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "burn_rate": {
+        "monthly_average": 2561.97,
+        "trend": "stable"
+      },
+      "surplus_capital": {
+        "amount": 3453.03,
+        "available_for_investment": 2052.04,
+        "safety_buffer": 1400.99
+      },
+      "anomalies": [
+        {
+          "type": "duplicate",
+          "description": "Duplicate Netflix charge detected on Jan 15 (2 charges of $15.99 within 48 hours)",
+          "amount": 15.99,
+          "potential_savings": 15.99
+        },
+        {
+          "type": "unused_subscription",
+          "description": "Spotify subscription of $9.99 appears unused for 45 days. Consider cancelling.",
+          "amount": 9.99,
+          "potential_savings": 9.99
+        }
+      ],
+      "account_summary": {
+        "total_balance": 3453.03,
+        "accounts_analyzed": 1,
+        "transaction_count": 7
+      }
+    },
+    "metadata": {
+      "agent_name": "Data Cruncher Agent",
+      "timestamp": "2024-06-10T15:32:00Z",
+      "analysis_period_days": 30
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-02-06T06:16:38.193551",
+  "test_message_used": "Hello, provide a sample response",
+  "actual_test_response": {
+    "status": "success",
+    "result": {
+      "burn_rate": {
+        "monthly_average": 2561.97,
+        "trend": "stable"
+      },
+      "surplus_capital": {
+        "amount": 3453.03,
+        "available_for_investment": 2052.04,
+        "safety_buffer": 1400.99
+      },
+      "anomalies": [
+        {
+          "type": "duplicate",
+          "description": "Duplicate Netflix charge detected on Jan 15 (2 charges of $15.99 within 48 hours)",
+          "amount": 15.99,
+          "potential_savings": 15.99
+        },
+        {
+          "type": "unused_subscription",
+          "description": "Spotify subscription of $9.99 appears unused for 45 days. Consider cancelling.",
+          "amount": 9.99,
+          "potential_savings": 9.99
+        }
+      ],
+      "account_summary": {
+        "total_balance": 3453.03,
+        "accounts_analyzed": 1,
+        "transaction_count": 7
+      }
+    },
+    "metadata": {
+      "agent_name": "Data Cruncher Agent",
+      "timestamp": "2024-06-10T15:32:00Z",
+      "analysis_period_days": 30
+    }
+  },
+  "test_passed": true
+}
