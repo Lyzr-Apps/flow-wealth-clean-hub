@@ -2,80 +2,41 @@
   "agent_name": "Market Strategist Agent",
   "agent_id": "6985867f49f279d47448a5c3",
   "agent_purpose": "investment_strategy",
-  "description": "Retrieves real-time yield data, ETF options, and institutional insights matched to user risk profile",
+  "description": "RAG-powered strategy pitcher with goal-aligned investment opportunities and market intelligence",
   "response_schema": {
-    "status": "string",
+    "status": "string (success|error)",
     "result": {
-      "recommendations": [
-        {
-          "investment_type": "string",
-          "current_APY": "string",
-          "minimum_investment": "string",
-          "liquidity_terms": "string"
-        }
-      ],
-      "risk_profile_matched": "string",
-      "total_opportunities": "number"
+      "response": "string",
+      "action_taken": "string (optional)",
+      "data": "object (optional, any structured data)",
+      "suggestions": [
+        "string (optional)"
+      ]
     },
     "metadata": {
       "agent_name": "string",
-      "timestamp": "string"
+      "timestamp": "string (ISO)"
     }
   },
   "example_response": {
     "status": "success",
     "result": {
-      "recommendations": [
-        {
-          "investment_type": "High-Yield Savings Account",
-          "current_APY": "4.00%",
-          "minimum_investment": "$1",
-          "liquidity_terms": "No withdrawal limits, funds accessible anytime"
-        },
-        {
-          "investment_type": "Money Market Fund",
-          "current_APY": "3.75%",
-          "minimum_investment": "$500",
-          "liquidity_terms": "Funds available within 1-2 business days"
-        }
-      ],
-      "risk_profile_matched": "conservative",
-      "total_opportunities": 2
+      "response": "I've completed the task you requested",
+      "action_taken": "Processed the input and generated output",
+      "data": {
+        "key": "value"
+      },
+      "suggestions": [
+        "You might also want to try X"
+      ]
     },
     "metadata": {
       "agent_name": "Market Strategist Agent",
-      "timestamp": "2023-10-06T14:30:00Z"
+      "timestamp": "2025-01-15T10:30:00Z"
     }
   },
-  "is_actual_tested": true,
-  "test_timestamp": "2026-02-06T06:20:10.272656",
+  "is_actual_tested": false,
+  "test_timestamp": null,
   "test_message_used": "Hello, provide a sample response",
-  "raw_test_response": "litellm.BadRequestError: LLM Provider NOT provided. Pass in the LLM provider you are trying to call. You passed model=sonar-pro\n Pass model as E.g. For 'Huggingface' inference endpoints pass in `completion(model='huggingface/starcoder',..)` Learn more: https://docs.litellm.ai/docs/providers",
-  "test_error": "Response not valid JSON: Expecting value: line 1 column 1 (char 0)",
-  "actual_test_response": {
-    "status": "success",
-    "result": {
-      "recommendations": [
-        {
-          "investment_type": "High-Yield Savings Account",
-          "current_APY": "4.00%",
-          "minimum_investment": "$1",
-          "liquidity_terms": "No withdrawal limits, funds accessible anytime"
-        },
-        {
-          "investment_type": "Money Market Fund",
-          "current_APY": "3.75%",
-          "minimum_investment": "$500",
-          "liquidity_terms": "Funds available within 1-2 business days"
-        }
-      ],
-      "risk_profile_matched": "conservative",
-      "total_opportunities": 2
-    },
-    "metadata": {
-      "agent_name": "Market Strategist Agent",
-      "timestamp": "2023-10-06T14:30:00Z"
-    }
-  },
-  "test_passed": true
+  "test_error": "Agent API returned status 429"
 }

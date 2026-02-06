@@ -1,16 +1,19 @@
 {
-  "workflow_name": "FlowState Autonomous Wealth Optimization Platform",
+  "workflow_name": "FlowState Autonomous Wealth Optimization Platform - Production Grade",
   "pattern": "Manager-Subagent",
   "created_at": "2026-02-06T00:00:00Z",
+  "upgraded_at": "2026-02-06T00:00:00Z",
+  "version": "2.0-production",
   "agents": {
     "wealth_architect_manager": {
       "agent_id": "698586be382ef8715224cf22",
-      "name": "Wealth Architect Manager",
+      "name": "Autonomous Wealth Controller",
       "type": "Manager",
       "provider": "OpenAI",
       "model": "gpt-4.1",
       "temperature": 0.3,
       "top_p": 1,
+      "capabilities": ["contextual_memory", "strategic_aggregation", "ui_interaction_tags", "regulatory_compliance"],
       "managed_agents": [
         "69858660382ef8715224cf1d",
         "6985867f49f279d47448a5c3",
@@ -25,6 +28,7 @@
       "model": "gpt-4.1",
       "temperature": 0.2,
       "top_p": 1,
+      "capabilities": ["predictive_liquidity", "shadow_balance", "transaction_sanitizer", "pattern_detection", "anomaly_detection"],
       "integrations": [
         {
           "name": "Plaid",
@@ -41,6 +45,7 @@
       "model": "perplexity/sonar-pro",
       "temperature": 0.3,
       "top_p": 1,
+      "capabilities": ["goal_aligned_matching", "rag_market_intelligence", "liquidity_aware_recommendations", "risk_adjusted_projections", "opportunity_scoring"],
       "integrations": [
         {
           "name": "Market Data API",
@@ -57,6 +62,7 @@
       "model": "gpt-4.1",
       "temperature": 0.2,
       "top_p": 1,
+      "capabilities": ["intent_based_triggers", "execution_bundles", "security_protocol", "compliance_audit", "state_machine_logic", "rollback_procedures"],
       "integrations": [
         {
           "name": "Plaid",
@@ -72,10 +78,10 @@
     }
   },
   "response_schemas": {
+    "autonomous_wealth_controller": "/app/nextjs-project/response_schemas/autonomous_wealth_controller_response.json",
     "data_cruncher_agent": "/app/nextjs-project/response_schemas/data_cruncher_agent_response.json",
     "market_strategist_agent": "/app/nextjs-project/response_schemas/market_strategist_agent_response.json",
-    "executioner_agent": "/app/nextjs-project/response_schemas/executioner_agent_response.json",
-    "wealth_architect_manager": "/app/nextjs-project/response_schemas/wealth_architect_manager_response.json"
+    "executioner_agent": "/app/nextjs-project/response_schemas/executioner_agent_response.json"
   },
   "trigger": "Analyze My Finances (Dashboard)",
   "workflow_layout": {

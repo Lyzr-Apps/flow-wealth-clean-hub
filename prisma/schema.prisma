@@ -1,0 +1,333 @@
+// FlowState Production Database Schema
+// Database: Supabase PostgreSQL
+// Purpose: Transaction categorization, user goals, execution history, audit trails
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User Profile & Goals
+model User {
+  id                String              @id @default(cuid())
+  email             String              @unique
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  // Risk Profile
+  riskProfile       RiskProfile         @default(CONSERVATIVE)
+
+  // Financial Goals
+  goals             FinancialGoal[]
+
+  // Transactions
+  transactions      Transaction[]
+
+  // Execution History
+  executionHistory  ExecutionHistory[]
+
+  // User Preferences
+  preferences       UserPreferences?
+
+  // Intent Triggers (Automated Rules)
+  intentTriggers    IntentTrigger[]
+
+  // Financial Health Snapshots
+  healthSnapshots   FinancialHealthSnapshot[]
+}
+
+enum RiskProfile {
+  CONSERVATIVE
+  AGGRESSIVE
+}
+
+// Financial Goals (e.g., "Buy house in 2028", "Mumbai trip fund")
+model FinancialGoal {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name            String   // e.g., "House Down Payment"
+  description     String?
+  targetAmount    Decimal  @db.Decimal(12, 2)
+  currentAmount   Decimal  @default(0) @db.Decimal(12, 2)
+  targetDate      DateTime
+  priority        Int      @default(1) // 1 = highest
+
+  status          GoalStatus @default(ACTIVE)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId, status])
+}
+
+enum GoalStatus {
+  ACTIVE
+  COMPLETED
+  PAUSED
+  CANCELLED
+}
+
+// Transaction Storage & Categorization
+model Transaction {
+  id                  String              @id @default(cuid())
+  userId              String
+  user                User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Plaid Transaction Data
+  plaidTransactionId  String?             @unique
+  accountId           String
+  amount              Decimal             @db.Decimal(12, 2)
+  date                DateTime
+  merchantName        String?
+  categoryRaw         String?             // Plaid's category
+
+  // AI-Enhanced Categorization
+  categorySanitized   TransactionCategory?
+  isRecurring         Boolean             @default(false)
+  recurringGroupId    String?             // Groups recurring charges
+
+  // Anomaly Flags
+  isDuplicate         Boolean             @default(false)
+  isVampire           Boolean             @default(false) // Unused subscription
+  isUnusual           Boolean             @default(false)
+
+  // User Interaction
+  isUserCategorized   Boolean             @default(false)
+  notes               String?
+
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+
+  @@index([userId, date])
+  @@index([userId, categorySanitized])
+  @@index([plaidTransactionId])
+}
+
+enum TransactionCategory {
+  INCOME
+  HOUSING
+  UTILITIES
+  GROCERIES
+  DINING
+  TRANSPORTATION
+  HEALTHCARE
+  INSURANCE
+  SUBSCRIPTIONS
+  ENTERTAINMENT
+  SHOPPING
+  TRAVEL
+  EDUCATION
+  SAVINGS_INVESTMENT
+  DEBT_PAYMENT
+  TAXES
+  FEES
+  TRANSFER
+  UNCATEGORIZED
+}
+
+// User Preferences & Settings
+model UserPreferences {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Alert Settings
+  idleMoneyThreshold    Int      @default(15) // Percentage
+  autoExecuteEnabled    Boolean  @default(false)
+
+  // Notification Preferences
+  notifyIdleMoney       Boolean  @default(true)
+  notifySubscriptions   Boolean  @default(true)
+  notifyAnomalies       Boolean  @default(true)
+  notifyWeeklyReport    Boolean  @default(true)
+
+  // Advanced Settings
+  shadowBalanceDays     Int      @default(14) // Days to predict bills
+  liquidityBufferAmount Decimal  @default(500) @db.Decimal(12, 2)
+
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
+// Intent-Based Triggers (Natural Language Automation)
+// e.g., "Save $50 for Mumbai trip every time I spend <$10 on lunch"
+model IntentTrigger {
+  id                String              @id @default(cuid())
+  userId            String
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name              String              // User-friendly name
+  naturalLanguage   String              // Original user input
+
+  // Trigger Condition
+  triggerType       TriggerType
+  conditionCategory TransactionCategory?
+  conditionOperator String?             // "less_than", "greater_than", "equals"
+  conditionAmount   Decimal?            @db.Decimal(12, 2)
+
+  // Action
+  actionType        ActionType
+  actionAmount      Decimal             @db.Decimal(12, 2)
+  targetGoalId      String?             // Which goal to fund
+
+  isActive          Boolean             @default(true)
+  lastTriggered     DateTime?
+  triggerCount      Int                 @default(0)
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  @@index([userId, isActive])
+}
+
+enum TriggerType {
+  TRANSACTION_MATCH  // Triggered when transaction matches condition
+  IDLE_MONEY         // Triggered when idle money detected
+  GOAL_MILESTONE     // Triggered when goal progress hits milestone
+  DATE_BASED         // Triggered on specific date/schedule
+}
+
+enum ActionType {
+  TRANSFER_TO_GOAL
+  TRANSFER_TO_SAVINGS
+  CANCEL_SUBSCRIPTION
+  CREATE_INVESTMENT
+  SEND_ALERT
+}
+
+// Execution History (Audit Trail for Compliance)
+model ExecutionHistory {
+  id                  String            @id @default(cuid())
+  userId              String
+  user                User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Execution Details
+  executionType       ExecutionType
+  bundleId            String?           // From Executioner Agent
+  agentId             String            // Which agent executed
+
+  // Request/Response
+  requestPayload      Json              // Original request
+  responsePayload     Json              // Agent response
+
+  // State Management
+  state               ExecutionState    @default(PENDING)
+  stateTransitions    Json?             // Array of state changes
+
+  // Security
+  hmacSignature       String?
+  idempotencyKey      String            @unique
+  verificationHash    String?
+
+  // Results
+  amount              Decimal?          @db.Decimal(12, 2)
+  success             Boolean           @default(false)
+  errorMessage        String?
+  rollbackExecuted    Boolean           @default(false)
+
+  // Compliance
+  regulatoryFlags     String[]          // e.g., ["GDPR", "PSD2"]
+  auditNotes          String?
+
+  executedAt          DateTime          @default(now())
+  completedAt         DateTime?
+
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+
+  @@index([userId, executedAt])
+  @@index([state])
+  @@index([idempotencyKey])
+}
+
+enum ExecutionType {
+  FUND_SWEEP
+  SUBSCRIPTION_CANCEL
+  REFUND_REQUEST
+  GOAL_TRANSFER
+  INVESTMENT_CREATE
+  INTENT_TRIGGER
+}
+
+enum ExecutionState {
+  PENDING
+  VALIDATING
+  EXECUTING
+  COMPLETED
+  FAILED
+  ROLLED_BACK
+}
+
+// Financial Health Snapshots (Time-series data)
+model FinancialHealthSnapshot {
+  id                    String   @id @default(cuid())
+  userId                String
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Health Metrics
+  healthScore           Int      // 0-100
+  savingsRate           Decimal  @db.Decimal(5, 2) // Percentage
+  protectionScore       Int      // Insurance/Emergency fund
+  optimizationScore     Int      // Money working vs idle
+
+  // Financial Data
+  bankBalance           Decimal  @db.Decimal(12, 2)
+  shadowBalance         Decimal  @db.Decimal(12, 2)
+  idleCapital           Decimal  @db.Decimal(12, 2)
+  workingCapital        Decimal  @db.Decimal(12, 2)
+
+  // Burn Rate
+  monthlyBurnRate       Decimal  @db.Decimal(12, 2)
+  predictedBurnRate     Decimal  @db.Decimal(12, 2)
+
+  // UI Theme Indicator
+  uiTheme               UITheme  @default(STABLE)
+
+  snapshotDate          DateTime @default(now())
+
+  @@index([userId, snapshotDate])
+}
+
+enum UITheme {
+  URGENT    // Red - Account hitting zero in 7 days
+  GROWTH    // Gold - Goal milestone hit
+  STABLE    // Green - Healthy state
+}
+
+// Predicted Bills (Liquidity Forecasting)
+model PredictedBill {
+  id                String   @id @default(cuid())
+  userId            String
+
+  merchantName      String
+  amount            Decimal  @db.Decimal(12, 2)
+  predictedDate     DateTime
+  confidence        Decimal  @db.Decimal(3, 2) // 0.00-1.00
+
+  billType          BillType
+  isRecurring       Boolean  @default(true)
+
+  // Tracking
+  wasActual         Boolean  @default(false)
+  actualTransactionId String?
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([userId, predictedDate])
+}
+
+enum BillType {
+  SUBSCRIPTION
+  INSURANCE
+  UTILITIES
+  LOAN_PAYMENT
+  TAX
+  OTHER
+}

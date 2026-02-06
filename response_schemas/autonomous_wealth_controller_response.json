@@ -1,8 +1,8 @@
 {
-  "agent_name": "Data Cruncher Agent",
-  "agent_id": "69858660382ef8715224cf1d",
-  "agent_purpose": "transaction_analysis",
-  "description": "Advanced transaction analyzer with predictive liquidity, shadow balance, and pattern detection",
+  "agent_name": "Autonomous Wealth Controller",
+  "agent_id": "698586be382ef8715224cf22",
+  "agent_purpose": "wealth_optimization",
+  "description": "Production-grade wealth orchestrator with contextual memory, strategic aggregation, and goal-aligned recommendations",
   "response_schema": {
     "status": "string (success|error)",
     "result": {
@@ -31,7 +31,7 @@
       ]
     },
     "metadata": {
-      "agent_name": "Data Cruncher Agent",
+      "agent_name": "Autonomous Wealth Controller",
       "timestamp": "2025-01-15T10:30:00Z"
     }
   },
